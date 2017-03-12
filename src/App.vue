@@ -44,6 +44,7 @@
     <div class="model-box">
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
+    <banner></banner>
     <model v-if="modelShow" @dialogClose="dialogClose" :normal="true" :model="false">
       <span slot="header">这是slot标题</span>
       <p>这是一个弹窗，很好看的弹窗</p>
@@ -64,6 +65,7 @@ import appSelect from './components/select'
 import tagInput from './components/tagInput'
 import selectBox from './components/selectBox'
 import model from './components/model'
+
 
 export default {
   name: 'app',

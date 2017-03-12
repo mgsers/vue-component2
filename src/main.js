@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import directive from './directive'
+import banner from './components/banner.js'
+
+Vue.use(banner)
 
 /* eslint-disable no-new */
 new Vue({
