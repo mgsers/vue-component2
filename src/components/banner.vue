@@ -12,12 +12,15 @@
             </ul>
         </div>
          <ul class="banner-page">
-            <li class="slider-btn"></li>
+            <li class="slider-btn"
+                v-for="(item, index) in list.msg"
+                :class="{'active':index == now}"></li>
         </ul>
     </div>
 </template>
 <script>
     export default {
+        name: 'banner',
         data() {
             return {
                 list: {
@@ -100,11 +103,32 @@
         padding: 0;
         margin: 0;
     }
+    li{
+        list-style: none;
+    }
     .banner {
         position: relative;
         width: 400px;
         height: 200px;
     }
+    .banner-page{
+   position:absolute;
+   bottom:1rem;
+   justify-content:center;
+   display: flex;
+   align-items:center;
+   width:100%;
+}
+.slider-btn{
+    width:0.8rem;
+    height:0.8rem;
+    background-color:#aaa;
+    border-radius: 50%;
+    margin-right:0.5rem;
+}
+.slider-btn.active{
+    background:red;
+}
     .slider-wrap {
         overflow: hidden;
     }

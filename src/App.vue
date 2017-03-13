@@ -45,6 +45,7 @@
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
     <banner></banner>
+    <hello></hello>
     <model v-if="modelShow" @dialogClose="dialogClose" :normal="true" :model="false">
       <span slot="header">这是slot标题</span>
       <p>这是一个弹窗，很好看的弹窗</p>
