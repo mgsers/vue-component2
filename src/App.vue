@@ -23,7 +23,7 @@
     </div>
     {{ messages.split('\n') }}
     <br /><br /><br />
-
+    {{ range(10,1) }}
     <br /><br /><br />
 
     <div v-outSideClose="close">
@@ -64,6 +64,7 @@ import appSelect from './components/select'
 import tagInput from './components/tagInput'
 import selectBox from './components/selectBox'
 import model from './components/model'
+import range from './utils/range'
 
 export default {
   name: 'app',
@@ -94,6 +95,7 @@ export default {
     }
   },
   methods: {
+    range,
     dialogClose() {
       this.modelShow = false;
     },
