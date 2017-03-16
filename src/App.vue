@@ -44,8 +44,14 @@
     <div class="model-box">
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
-    <banner></banner>
-    <hello></hello>
+    <banner @keyup.up="up"></banner>
+    <br /><br /><br />
+    view: {{ $store.getters.done }}
+    {{ $store.state.count }}
+      <button @click="increment($event.target)">increment</button>
+
+      <tag-select v-model="tags" :get-item="getItems"></tag-select>
+
     <model v-if="modelShow" @dialogClose="dialogClose" :normal="true" :model="false">
       <span slot="header">这是slot标题</span>
       <p>这是一个弹窗，很好看的弹窗</p>
@@ -65,6 +71,7 @@
 import appSelect from './components/select'
 import tagInput from './components/tagInput'
 import selectBox from './components/selectBox'
+import tagSelect from './components/tagSelect'
 import model from './components/model'
 import range from './utils/range'
 
@@ -75,7 +82,8 @@ export default {
     appSelect,
     tagInput,
     selectBox,
-    model
+    model,
+    tagSelect
   },
   data () {
     return {
@@ -89,7 +97,9 @@ export default {
       show: false,
       show2: true,
       modelShow: false,
-      modelShow2: false
+      modelShow2: false,
+      // tag
+      tags: [{name:'hehe'}]
     }
   },
   watch: {
@@ -98,6 +108,18 @@ export default {
     }
   },
   methods: {
+    up() {
+      console.log('sss')
+    },
+    getItems() {
+      return new Promise((resolve,reject)=>{
+        resolve([{name: 'haha'},{name:'hehe'},{name:'dddd'},{name:'cccc'}])
+      })
+    },
+    increment(e) {
+      this.$store.dispatch('incrementAsync',e)
+      // this.$store.commit('increment',e)
+    },
     range,
     dialogClose() {
       this.modelShow = false;

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import directive from './directive'
 import banner from './components/banner.js'
+import store from './store'
 
 Vue.use(banner)
 
@@ -12,5 +13,6 @@ new Vue({
   el: '#app',
   template: '<App/>',
   directive,
-  components: { App }
+  components: { App },
+  store
 })
