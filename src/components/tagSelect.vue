@@ -50,18 +50,54 @@
                 keyword: '',
                 items: [],
                 inputVal: '',
-                current: 0
+                current: 0,
+                preVal: '',
+                prevInputVal: '',
+                timers: [],
+                lastRequestTime: new Date().getTime()
             }
         },
         watch: {
             keyword(v,oldv) {
-                this.search()
+                this.preVal = oldv
+
+                if(!this.searching){
+                    this.preVal = ''
+                }
+                if(!v) {
+                    this.items = [];
+                    return;
+                }
+                var now = new Date().getTime()
+                var delay = 300
+                var vm = this
+                var timer = setTimeout(function(){
+                    vm.search()
+                },delay+10)
+                this.timers.push(timer)
+
+                if(now - this.lastRequestTime > delay){
+                    this.lastRequestTime = now
+                    this.search()
+                    this.timers.forEach(function(timer){
+                        clearTimeout(timer)
+                    })
+                    this.timers = []
+                }else {
+                    this.timers.slice(0,-1).forEach(function(timer){
+                        clearTimeout(timer)
+                    })
+                    this.timers = this.timers.slice(-1)
+                }
             }
         },
         computed: {
             tagList() {
                 var tagkey = this.tagkey;
                 return this.value.map((item)=>item[tagkey])
+            },
+            inputVal(v,oldv) {
+                this.prevInputVal = oldv;
             }
         },
         methods: {
@@ -79,6 +115,10 @@
                     this.value.push(item)
                     
                 }
+
+                this.keyword = ''
+                this.current = 0
+                this.items = []
             },
             selectItem(index) {
                 this.current = index;

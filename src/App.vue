@@ -44,7 +44,10 @@
     <div class="model-box">
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
-    <banner @keyup.up="up"></banner>
+
+    <date-picker></date-picker>
+
+
     <br /><br /><br />
     view: {{ $store.getters.done }}
     {{ $store.state.count }}
@@ -74,6 +77,7 @@ import selectBox from './components/selectBox'
 import tagSelect from './components/tagSelect'
 import model from './components/model'
 import range from './utils/range'
+import datePicker from './components/date-picker'
 
 
 export default {
@@ -83,7 +87,8 @@ export default {
     tagInput,
     selectBox,
     model,
-    tagSelect
+    tagSelect,
+    datePicker
   },
   data () {
     return {
@@ -108,9 +113,6 @@ export default {
     }
   },
   methods: {
-    up() {
-      console.log('sss')
-    },
     getItems() {
       return new Promise((resolve,reject)=>{
         resolve([{name: 'haha'},{name:'hehe'},{name:'dddd'},{name:'cccc'}])
