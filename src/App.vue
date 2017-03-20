@@ -21,6 +21,7 @@
       测试box
       <input v-focus type="text" ref="input" name="" value="">
     </div>
+    <date-picker></date-picker>
     {{ messages.split('\n') }}
     <br /><br /><br />
     {{ range(10,1) }}
@@ -77,7 +78,7 @@ import tagSelect from './components/tagSelect'
 import model from './components/model'
 import range from './utils/range'
 import {getbanner, getRank, fcg} from './apis/url.js'
-// import datePicker from './components/date-picker'
+import datePicker from './components/date-picker'
 
 // function MusicJsonCallback (data) {
 //   console.log('data is :', data)
@@ -96,7 +97,7 @@ export default {
     selectBox,
     model,
     tagSelect,
-    // datePicker
+    datePicker
   },
   data () {
     return {
