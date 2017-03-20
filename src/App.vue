@@ -45,7 +45,6 @@
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
 
-    <date-picker></date-picker>
 
 
     <br /><br /><br />
@@ -77,7 +76,16 @@ import selectBox from './components/selectBox'
 import tagSelect from './components/tagSelect'
 import model from './components/model'
 import range from './utils/range'
-import datePicker from './components/date-picker'
+import {getbanner, getRank, fcg} from './apis/url.js'
+// import datePicker from './components/date-picker'
+
+// function MusicJsonCallback (data) {
+//   console.log('data is :', data)
+// }
+
+window['MusicJsonCallback'] = function(res){
+        console.log('--------------',res)
+    }
 
 
 export default {
@@ -88,7 +96,7 @@ export default {
     selectBox,
     model,
     tagSelect,
-    datePicker
+    // datePicker
   },
   data () {
     return {
@@ -111,6 +119,28 @@ export default {
     selectData(v){
       console.log(v)
     }
+  },
+  mounted() {
+      fcg([],{
+        callback:'MusicJsonCallback'
+      })
+      .then((res)=>{
+        // eval(res)
+        console.log(res)
+      })
+      .catch(error => console.log(error))
+
+      // getbanner()
+      // .then((res)=>{
+      //   console.log(res)
+      // })
+      // .catch(error => console.log(error)) 
+
+      // getRank()
+      // .then((res)=>{
+      //   console.log(res)
+      // })
+      // .catch(error => console.log(error))
   },
   methods: {
     getItems() {
