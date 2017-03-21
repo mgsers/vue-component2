@@ -45,8 +45,13 @@
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
 
-    <date-picker></date-picker>
+    {{aa('www')}}
+  
+    random number{{ randomNum(5333,2) }}
 
+    {{ sort(arrayS) }}
+
+    {{ randomItem(arrayS) }}
 
     <br /><br /><br />
     view: {{ $store.getters.done }}
@@ -77,7 +82,12 @@ import selectBox from './components/selectBox'
 import tagSelect from './components/tagSelect'
 import model from './components/model'
 import range from './utils/range'
-import datePicker from './components/date-picker'
+// import datePicker from './components/date-picker'
+import {sort, randomItem} from './utils/array-random'
+
+import aa from './utils/array-random'
+
+import randomNum from './utils/random-number.js'
 
 
 export default {
@@ -88,7 +98,7 @@ export default {
     selectBox,
     model,
     tagSelect,
-    datePicker
+    // datePicker
   },
   data () {
     return {
@@ -104,7 +114,8 @@ export default {
       modelShow: false,
       modelShow2: false,
       // tag
-      tags: [{name:'hehe'}]
+      tags: [{name:'hehe'}],
+      arrayS: [1,2,3,4,5,6]
     }
   },
   watch: {
@@ -113,6 +124,10 @@ export default {
     }
   },
   methods: {
+    aa,
+    sort,
+    randomItem,
+    randomNum,
     getItems() {
       return new Promise((resolve,reject)=>{
         resolve([{name: 'haha'},{name:'hehe'},{name:'dddd'},{name:'cccc'}])
