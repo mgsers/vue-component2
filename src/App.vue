@@ -21,6 +21,7 @@
       测试box
       <input v-focus type="text" ref="input" name="" value="">
     </div>
+    <date-picker></date-picker>
     {{ messages.split('\n') }}
     <br /><br /><br />
     {{ range(10,1) }}
@@ -45,9 +46,12 @@
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
 
+<<<<<<< HEAD
     {{aa('www')}}
   
     random number{{ randomNum(5333,2) }}
+=======
+>>>>>>> d1ad9420e60f04376ceaf3bef512844527bf6337
 
     {{ sort(arrayS) }}
 
@@ -88,6 +92,16 @@ import {sort, randomItem} from './utils/array-random'
 import aa from './utils/array-random'
 
 import randomNum from './utils/random-number.js'
+import {getbanner, getRank, fcg} from './apis/url.js'
+import datePicker from './components/date-picker'
+
+// function MusicJsonCallback (data) {
+//   console.log('data is :', data)
+// }
+
+window['MusicJsonCallback'] = function(res){
+        console.log('--------------',res)
+    }
 
 
 export default {
@@ -122,6 +136,28 @@ export default {
     selectData(v){
       console.log(v)
     }
+  },
+  mounted() {
+      fcg([],{
+        callback:'MusicJsonCallback'
+      })
+      .then((res)=>{
+        // eval(res)
+        console.log(res)
+      })
+      .catch(error => console.log(error))
+
+      // getbanner()
+      // .then((res)=>{
+      //   console.log(res)
+      // })
+      // .catch(error => console.log(error)) 
+
+      // getRank()
+      // .then((res)=>{
+      //   console.log(res)
+      // })
+      // .catch(error => console.log(error))
   },
   methods: {
     aa,

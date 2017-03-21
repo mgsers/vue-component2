@@ -10,15 +10,15 @@ function handleResponse(err,res,resolve,reject) {
     if(err){
         reject(err)
     }
+    
 
+    // console.log(res)
     const status = res.status
-    const data = JSON.parse(res.text)
+    // const data = JSON.parse(res.text)
     const code = res.code
-    if(code == 0){
-        resolve(data)
-    }
-
-    reject(data)
+    // if(code == 0){
+     resolve(res.text)
+    // }
 }
 
 export function get (baseUrl, params = [], query = {}){
