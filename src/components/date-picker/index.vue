@@ -4,9 +4,7 @@
          @focus=""
          @blur="">
         <div style="font-size:12px">
-             {{ lastMonthDates }}<br />
-         {{ dates }}<br />
-         {{ nextMonthDates }}
+            {{ currentDate }}
         </div>
     </div>
 </template>
@@ -52,6 +50,13 @@ export default {
 
             return range(42-this.lastMonthDates.length-this.dates.length)
                 .map(gen.bind(null,year,month+1))
+        },
+
+        currentDate() {
+            let lastMonthDates = this.lastMonthDates;
+            let dates = this.dates;
+            let nextMonthDates = this.nextMonthDates;
+            return dates
         }
     }
 }

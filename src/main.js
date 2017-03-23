@@ -5,8 +5,15 @@ import App from './App'
 import directive from './directive'
 import banner from './components/banner.js'
 import store from './store'
+import VueRouter from 'vue-router'
+import router from './router-config.js'
 
 Vue.use(banner)
+
+// router.beforeEach((to, from, next)=>{
+//     // console.log(to)
+//     next()
+// })
 
 /* eslint-disable no-new */
 new Vue({
@@ -14,5 +21,6 @@ new Vue({
   template: '<App/>',
   directive,
   components: { App },
-  store
+  store,
+  router
 })

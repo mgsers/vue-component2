@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <router-link to="/a">a</router-link>
+    <router-link to="/b">b</router-link>
+    <router-view></router-view>
     <app-select
     :select-data="source"
     @selectedData='selectedE'>
@@ -18,7 +21,7 @@
     @blur="onBlur"
     tabindex="-1"
     >
-      测试box
+      测试sss
       <input v-focus type="text" ref="input" name="" value="">
     </div>
     <date-picker></date-picker>
@@ -84,9 +87,9 @@ import datePicker from './components/date-picker'
 //   console.log('data is :', data)
 // }
 
-window['MusicJsonCallback'] = function(res){
-        console.log('--------------',res)
-    }
+// window['MusicJsonCallback'] = function(res){
+//         console.log('--------------',res)
+//     }
 
 
 export default {
@@ -127,7 +130,7 @@ export default {
       })
       .then((res)=>{
         // eval(res)
-        console.log(res)
+       // console.log(res)
       })
       .catch(error => console.log(error))
 
