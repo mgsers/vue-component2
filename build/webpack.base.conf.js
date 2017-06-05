@@ -21,9 +21,18 @@ module.exports = {
 
   // 最终输出文件及目录
   output: {
+    // 文件输出的路径
     path: config.build.assetsRoot,
+    // 指的是输出文件中存在src/url时，路径的不同而造成资源引用的失败，所以用此来更正根路径
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
+    // filename 输出文件名称，支持自定义或占位符[name][hash][chunkhash]
+    // [name] 文件原本的名称
+    // [hash] 哈希值，本次打包的版本号 ???
+    // [chunkhash] 打包块版本号 ???
     filename: '[name].js',
+    // 用于未配置在entry中，但是通过import或者require依赖关系加载进来的模块进行命名
+    // 常用于提取公共模块
+    // 默认随机数，可读性较差
     chunkFilename: '[id].chunk.js'
   },
   // 用于设置引用外部的环境进行模块构建，有利于程序优化 
@@ -62,8 +71,6 @@ module.exports = {
     //  是否强制使用扩展名。如果为false时候，在解析一个文件，也会尝试匹配无扩展名的文件
     // * enforceExtension: false,
 
-    //  模块后缀名，解析一个模块时，将会尝试附加这些后缀名
-    //  moduleExtensions: ['-loader']
     
   },
 
@@ -85,22 +92,33 @@ module.exports = {
     //   }
     // })
   ],
-
+  // 与 resolve 相似，只不过是用于loader包的解析
   resolveLoader: {
+    //  模块后缀名，解析一个模块时，将会尝试附加这些后缀名
+    //  moduleExtensions: ['-loader'],
+
+    // 当通过npm安装的node模块时，可能出现找不到依赖的错误，
+    // 可以通过 resolve.fallback 和 resolveLoader.fallback 来解决问题
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
+    // loader编译器
     loaders: [
       {
+        // 匹配规则
         test: /\.vue$/,
         loader: 'vue'
       },
       {
+        // 匹配规则
         test: /\.js$/,
+        // loader名称
         loader: 'babel',
+        // 同 test 为匹配选项
         include: [
           path.join(projectRoot, 'src')
         ],
+        // 必不匹配选项，优先级最高（避免使用）
         exclude: /node_modules/
       },
       {
@@ -110,6 +128,7 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
+        // loader可选配置
         query: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
