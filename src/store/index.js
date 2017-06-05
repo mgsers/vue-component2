@@ -22,7 +22,7 @@ export default new Vuex.Store({
         increment (context,e){
             context.commit('increment',e)
         },
-        incrementAsync (context,e) {
+        incrementAsync (context,e) {  
             setTimeout(() => {
             context.commit('increment',e)
             }, 1000)

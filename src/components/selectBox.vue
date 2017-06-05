@@ -9,12 +9,17 @@
 <script>
 export default {
   props: ['value'],
+  watch: {
+      // value(v) {
+      //   console.log('----',v)
+      // }
+  },
   methods: {
     up(v){
       this.$emit('input',v)
     },
     rr(v){
-      console.log(v)
+      // console.log(v)
     }
   }
 }

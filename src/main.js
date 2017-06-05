@@ -10,6 +10,10 @@ import router from './router-config.js'
 
 Vue.use(banner)
 
+// vue版本号
+// var version = Vue.version;
+// console.log(version);
+
 // router.beforeEach((to, from, next)=>{
 //     // console.log(to)
 //     next()

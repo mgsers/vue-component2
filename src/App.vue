@@ -1,8 +1,13 @@
 <template>
   <div id="app">
-    <router-link to="/a">a</router-link>
-    <router-link to="/b">b</router-link>
-    <router-view></router-view>
+       
+        <count-down :least="least"></count-down>
+
+        <span class="fontStyle">这是测试</span>
+
+        <textarea :value="input" @input="update"></textarea>
+        <div v-html="compiledMarkdown"></div>
+
     <app-select
     :select-data="source"
     @selectedData='selectedE'>
@@ -24,10 +29,10 @@
       测试sss
       <input v-focus type="text" ref="input" name="" value="">
     </div>
-    <date-picker></date-picker>
+
     {{ messages.split('\n') }}
     <br /><br /><br />
-    {{ range(10,1) }}
+
     <br /><br /><br />
 
     <div v-outSideClose="close">
@@ -48,17 +53,22 @@
     <div class="model-box">
       <span class="model-span" @click="modelShow = !modelShow">model</span>
     </div>
+<!-- 3d banner -->
+    <div class="banner">
+      <div class="bg">
+        <span class="img a"></span>
+        <span class="text b">以傲慢与偏执<br/>回敬傲慢与偏见</span>
+        <span class="copyright c">code by qingjin.me | picture from t.tt</span>
+      </div>
+    </div>  
 
-<<<<<<< HEAD
-    {{aa('www')}}
+
   
-    random number{{ randomNum(5333,2) }}
-=======
->>>>>>> d1ad9420e60f04376ceaf3bef512844527bf6337
 
-    {{ sort(arrayS) }}
 
-    {{ randomItem(arrayS) }}
+  
+
+
 
     <br /><br /><br />
     view: {{ $store.getters.done }}
@@ -95,8 +105,13 @@ import {sort, randomItem} from './utils/array-random'
 import aa from './utils/array-random'
 
 import randomNum from './utils/random-number.js'
-import {getbanner, getRank, fcg} from './apis/url.js'
+// import {getbanner, getRank, fcg} from './apis/url.js'
+import {getbanner, getRank, fcg} from 'URLS'
 import datePicker from './components/date-picker'
+import routerMap from './components/router'
+
+import countDown from './components/countDown'
+import $ from 'jquery'
 
 // function MusicJsonCallback (data) {
 //   console.log('data is :', data)
@@ -115,6 +130,8 @@ export default {
     selectBox,
     model,
     tagSelect,
+    routerMap,
+    countDown
     // datePicker
   },
   data () {
@@ -132,21 +149,46 @@ export default {
       modelShow2: false,
       // tag
       tags: [{name:'hehe'}],
-      arrayS: [1,2,3,4,5,6]
+      arrayS: [1,2,3,4,5,6],
+      input: 'ssss'
     }
   },
+  computed: {
+          compiledMarkdown: function () {
+            return marked(this.input, { sanitize: true })
+          },
+          least() {
+            return new Date('Mar 25 2017') - new Date()
+            // return new Date('Mar 25 2017')
+          }
+        },
   watch: {
     selectData(v){
-      console.log(v)
+      // console.log('22222')
+      // console.log(v)
+      // console.log(window.location)
+      // window.location.href = 'www.baidu.com'
     }
   },
   mounted() {
+// mock数据获取
+      $.ajax({
+        url: 'DataServer/article/getArticle/0/2',
+        type: 'get',
+        data: {reqParam:1},
+        success: function (data) {
+          // console.log(data)
+        }
+      })
+
+
+      // console.log(this.least)
       fcg([],{
         callback:'MusicJsonCallback'
       })
       .then((res)=>{
         // eval(res)
-       // console.log(res)
+       console.log(res)
       })
       .catch(error => console.log(error))
 
@@ -161,8 +203,13 @@ export default {
       //   console.log(res)
       // })
       // .catch(error => console.log(error))
+      // console.log(this._data)
+
   },
   methods: {
+    update: _.debounce(function (e) {
+            this.input = e.target.value
+          }, 300),
     aa,
     sort,
     randomItem,
@@ -188,23 +235,33 @@ export default {
       this.onBlur()
     },
     onBlur() {
-      console.log('blur')
+      // console.log('blur')
     },
     selectedE (v) {
-      console.log(v);
+      // console.log(v);
     },
     iptE (v) {
-      console.log(v);
+      // console.log(v);
     },
     onFocus (){
       // this.$refs.input.focus()
-      console.log('success');
+      // console.log('success');
     }
   }
 }
 </script>
 
 <style scoped>
+.fontStyle {
+    font-family: myStyle;
+}
+
+@font-face {
+    font-family: 'myStyle';
+    src: local("微软雅黑"), local("Helvetica Neue Light"),  local("PingFang SC"), local("Microsoft YaHei"), local(sans-serif);
+    font-weight: 800;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -266,5 +323,98 @@ export default {
   line-height: 30px;
   color: #fff;
   cursor: pointer;
+}
+html, body, #editor {
+  margin: 0;
+  height: 100%;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+}
+
+textarea, #editor div {
+  display: inline-block;
+  width: 49%;
+  height: 100%;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+textarea {
+  border: none;
+  border-right: 1px solid #ccc;
+  resize: none;
+  outline: none;
+  background-color: #f6f6f6;
+  font-size: 14px;
+  font-family: 'Monaco', courier, monospace;
+  padding: 20px;
+}
+
+code {
+  color: #f66;
+}
+
+* {
+  font-family: "Microsoft YaHei";
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+}
+
+.banner {
+  perspective: 800px;
+}
+
+.bg {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  margin: 100px auto;
+  background: url("http://static.smartisanos.cn/index/img/store/home/banner-3d-item-1-box-1_61bdc2f4f9.png") center no-repeat;
+  background-size:100% 100%;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-transform: rotateY(0deg) rotateX(0deg);
+}
+.img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 8px;
+  left: 0;
+  background: url("http://static.smartisanos.cn/index/img/store/home/banner-3d-item-1-box-3_8fa7866d59.png") center no-repeat;
+  background-size:95% 100%;
+}
+.text{
+  position: absolute;
+  top:20%;
+  right:10%;
+  font-size:30px;
+  color:#fff;
+  text-align:right;
+  font-weight:lighter;
+}
+.copyright{
+  position: absolute;
+  bottom:10%;
+  right:10%;
+  font-size:10px;
+  color:#fff;
+  text-align:right;
+  font-weight:lighter;
+}
+.a {
+  -webkit-transform: translateZ(40px);
+}
+.b {
+  -webkit-transform: translateZ(20px);
+}
+.c {
+  -webkit-transform: translateZ(0px);
 }
 </style>
